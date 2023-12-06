@@ -146,11 +146,10 @@ function guardarCarritoEnElLocalStorage() {
     localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-function agregarAlCarrito(articulo, precio) { //Agrega los elementos al carrito
+function agregarAlCarrito(articulo, precio) { //Agrega los elementos al carrito    
     carrito.push({ articulo, precio}); // Agrega el elemento correspondiente al boton de Agregar al Carrito en el array carrito
     mostrarCarrito(carrito) // llama a la funcion mostrarCarrito
     guardarCarritoEnElLocalStorage()
-
 }
 
 function mostrarCarrito(carrito) { // Muestra los productos en la seccion carrito
@@ -165,16 +164,33 @@ function mostrarCarrito(carrito) { // Muestra los productos en la seccion carrit
         contenedor.className += "cardcarrito"; // Agrega la clase a la variable contenedor
         document.getElementById("carrito").appendChild(contenedor); // Agrega la variable contenedor al elemento del carrito
         });
-        let contenedorb = document.getElementById("totalCarrito"); // Guarda el elemento con el Id="carrito" en la variable contenedor 
-        contenedorb.innerHTML = `<p>Total Carrito: u$s ${totalCarrito()}</p>` // Agrega el total del carrito
-        contenedorb.className += "cardcarrito"; // Agrega la clase a la variable contenedorb
-        //contenedor.innerHTML = `<button class="btn btn-primary" onclick="Checkout('${producto.articulo}', ${producto.precio})">Checkout</button><br>`
+        contenedorb = document.getElementById("totalCarrito"); // Guarda el elemento con el Id="totalCarrito" en la variable contenedor 
+        contenedorb.innerHTML = `<p>Total Carrito: u$s ${totalCarrito()}</p><br>` // Agrega el total del carrito
+        let contenedorc = document.getElementById("vaciaCarrito"); // Agrega el boton de Checkout
+        contenedorc.innerHTML = `<button class="btn btn-primary" onclick="vaciaCarrito()">Vaciar el carrito</button><br>`
+       let contenedord = document.getElementById("checkOut"); // Agrega el boton de Checkout
+        contenedord.innerHTML = `<button class="btn btn-primary" onclick="Checkout()">Checkout</button><br>`
+    }
+
+function vaciaCarrito(){
+    carrito = [];
+    guardarCarritoEnElLocalStorage();
+    mostrarCarrito(carrito) // Muestra el carrito con el producto ya eliminado
+
+}
+
+function Checkout(){ // Abre la ventana de Chekout (no desarrollada, abre la homepage de Goya)
+    // Abrir nuevo tab
+    let win = window.open('https://goyawindsurfing.com/', '_blank');
+    // Cambiar el foco al nuevo tab (punto opcional)
+    win.focus();    
+    guardarCarritoEnElLocalStorage();
+    mostrarCarrito(carrito) // Muestra el carrito con el producto ya eliminado
 }
 
 
 function totalCarrito(){ // Calcula el precio total del carrito
     const sumaDePrecios = carrito.reduce((total, producto) => total + producto.precio, 0);
-        console.log(sumaDePrecios);
     return(sumaDePrecios);
     }
 

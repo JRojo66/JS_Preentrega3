@@ -1,3 +1,9 @@
+img{
+    margin: 1%;
+    width: 10vw;
+    height: 5vh;
+}
+
 .pagina{
     display: flex; /* Establece la distribucion de los buscadores y los cards en la pagina*/
     flex-direction: row; /* Esteblece que los buscadores se muestren al costado de la pagina*/
